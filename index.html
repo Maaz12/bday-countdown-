@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Countdown ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(180deg, #ffe4ec, #ffd1dc);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5a2a3c;
+      text-align: center;
+    }
+
+    .container {
+      z-index: 2;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .time-box {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+      padding: 14px 16px;
+      min-width: 80px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .number {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      margin-top: 4px;
+      opacity: 0.8;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(255, 105, 180, 0.7);
+      font-size: 20px;
+      animation: floatUp linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Countdown to Your Birthday 💖</h1>
+    <div class="subtitle">Every second brings us closer to celebrating you</div>
+
+    <div class="countdown">
+      <div class="time-box">
+        <div class="number" id="days">0</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="hours">0</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="minutes">0</div>
+        <div class="label">Minutes</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Made with ❤️ just for you
+    </div>
+  </div>
+
+  <script>
+    const targetDate = new Date("May 29, 2026 00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.querySelector(".countdown").innerHTML =
+          "<div class='number'>🎉 Happy Birthday! 🎉</div>";
+        return;
+      }
+
+      const minutes = Math.floor(diff / (1000 * 60)) % 60;
+      const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* Create floating hearts */
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 16 + Math.random() * 20 + "px";
+      heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 12000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
